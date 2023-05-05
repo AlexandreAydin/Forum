@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Forum {% endblock %}
+
+
+ {% block body %} 
+    <div class="container mt-4">
+		<div class="jumbotron">
+			<h1 class="display-4">Bienvenue sur le site de forum</h1>
+			<p class="lead">Site forum est une application qui va te permettre de créer des forum. Tu pourras partager tes idées à la communauté du site, ou bien les garder en privées.</p>
+			<hr class="my-4">
+			<p>Pour commencer, rendez-vous sur la page d'inscription pour utiliser l'application.</p>
+			<a class="btn btn-primary btn-lgz" href="#" role="button">Inscription</a>
+		</div>
+
+
+		<div class="recipes">
+			<h2 class="mt-4">Les 3 dernier Forum de la communauté</h2>
+			{# <div class="d-flex justify-content-between">
+					<div class="card border-primary mb-3" style="max-width: 20rem;"> 
+						<div class="card-header"></div>
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="#"></a>
+							</h4>
+							<p class="card-text"></p>
+						</div>
+					</div>
+			</div> #}
+		</div>
+	</div>
+
+ {% endblock %}
