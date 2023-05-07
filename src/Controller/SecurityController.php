@@ -44,7 +44,7 @@ class SecurityController extends AbstractController
     }
 
 
-    #[Route('/connexion', name: 'app_login')]
+    #[Route('/connexion', name: 'app_login', methods: ['GET', 'POST'])]
     public function login(): Response
     {
         return $this->render('pages/security/login.html.twig', [
@@ -52,12 +52,11 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    #[Route('/connexion', name: 'app_logout')]
-    public function logout(): Response
+    #[Route('/deconnexion', 'app_logout')]
+    public function logout() : Response
     {
-        return $this->render('pages/security/login.html.twig', [
-            'controller_name' => 'SecurityController',
-        ]);
+
+
     }
 
 
