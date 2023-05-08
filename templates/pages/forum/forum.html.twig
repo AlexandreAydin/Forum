@@ -1,7 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ForumController!{% endblock %}
+{% block title %}Forum - Mes Forums
+{% endblock %}
 
 {% block body %}
+	<div class="container mt-4">
+		{% if not forums.items is same as([]) %}
+			<h1>Mes Forums</h1>
 
+			<div class="d-flex justify-content-center flex-wrap">
+				{% for forum in forums %}
+					<div class="card border-primary mb-3" style="max-width: 20rem;">
+						<div class="card-header">Forum n°{{ forum.id }}</div>
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="#">{{ forum.title }}</a>
+							</h4>
+							<p class="card-text">{{ forum.description|slice(0, 100) ~ '...' }}</p>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+		<div class="navigation d-flex justify-content-center mt-4">
+				{{ knp_pagination_render(forums) }}
+			</div>
+
+		{% else %}
+			<h4>Il n'y a pas de forum</h4>
+		{% endif %}
+	</div>
 {% endblock %}

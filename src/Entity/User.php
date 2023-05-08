@@ -61,10 +61,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull()]
     private \DateTimeImmutable $updatedAt;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Forum::class)]
+    private Collection $forum;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Mark::class, orphanRemoval: true)]
+    private Collection $marks;
+
 
     public function __construct(){
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
+        $this->forum = new ArrayCollection();
+        $this->marks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -212,9 +220,65 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return Collection<int, Forum>
+     */
+    public function getForum(): Collection
+    {
+        return $this->forum;
+    }
 
+    public function addForum(Forum $forum): self
+    {
+        if (!$this->forum->contains($forum)) {
+            $this->forum->add($forum);
+            $forum->setUser($this);
+        }
 
+        return $this;
+    }
 
+    public function removeForum(Forum $forum): self
+    {
+        if ($this->forum->removeElement($forum)) {
+            // set the owning side to null (unless already changed)
+            if ($forum->getUser() === $this) {
+                $forum->setUser(null);
+            }
+        }
 
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Mark>
+     */
+    public function getMarks(): Collection
+    {
+        return $this->marks;
+    }
+
+    public function addMark(Mark $mark): self
+    {
+        if (!$this->marks->contains($mark)) {
+            $this->marks->add($mark);
+            $mark->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMark(Mark $mark): self
+    {
+        if ($this->marks->removeElement($mark)) {
+            // set the owning side to null (unless already changed)
+            if ($mark->getUser() === $this) {
+                $mark->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+  
 
 }

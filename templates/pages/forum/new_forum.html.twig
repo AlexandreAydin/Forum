@@ -1,7 +1,53 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Nouveau Forum - Forum{% endblock %}
+{% block title %}Site-Recette - Nouvelle recette
+{% endblock %}
 
 {% block body %}
+	<div class="container">
 
+		<h1 class="mt-4">Création d'une recette</h1>
+
+		{{ form_start(form) }}
+
+		<div class="form-group">
+			{{ form_label(form.title) }}
+			{{ form_widget(form.title) }}
+			<div class="form-error">
+				{{ form_errors(form.title) }}
+			</div>
+		</div>
+
+		<div class="form-group">
+			{{ form_label(form.description) }}
+			{{ form_widget(form.description) }}
+			<div class="form-error">
+				{{ form_errors(form.description) }}
+			</div>
+		</div>
+
+
+		<div class="form-group mt-4">
+			{{ form_widget(form.isFavorite) }}
+			{{ form_label(form.isFavorite) }}
+			<div class="form-error">
+				{{ form_errors(form.isFavorite) }}
+			</div>
+		</div>
+
+		<div class="form-group mt-4">
+			{{ form_widget(form.isPublic) }}
+			{{ form_label(form.isPublic) }}
+			<div class="form-error">
+				{{ form_errors(form.isPublic) }}
+			</div>
+		</div>
+
+
+
+		{# {{ form_row(form.imageFile) }} #}
+
+
+		{{ form_end(form) }}
+	</div>
 {% endblock %}
