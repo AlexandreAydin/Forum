@@ -68,6 +68,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $marks;
 
 
+
     public function __construct(){
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();

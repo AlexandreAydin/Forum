@@ -14,8 +14,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class ForumType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
         $builder
             ->add('title', TextType::class,[
                 "attr"=>[

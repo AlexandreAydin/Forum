@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+    {% block title %}
+	Forum -
+	{{ forum.id }}
+
+{% endblock %}
+
+
+{% block body %}  
+    <div class="container">
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success mt-4">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		<h1 class="mt-4">{{ forum.title }}</h1>
+
+		<p>La moyenne de cette recette est de
+			{{ forum.average|number_format(2, '.', ',') }}
+			/5</p>
+		<div> 
+			<span class="badge bg-primary">Créée le
+				{{ forum.createdAt|date('d/m/Y') }}</span>
+		</div>
+
+
+		<div class="mt-4">
+			{{ forum.description|raw }}
+		</div>
+
+		<div class="mark">
+			{{ form(form) }}
+		</div> 
+
+	</div>
+
+{% endblock %}
