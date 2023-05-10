@@ -46,11 +46,18 @@ class Forum
 
     private ?int $average = null;
 
+    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'forum')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Collection $categories;
+
+
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
         $this->marks = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -192,6 +199,33 @@ class Forum
         $this->average = $total / count($marks);
 
         return $this->average;
+    }
+
+    /**
+     * @return Collection<int, Categorie>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Categorie $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+            $category->addForum($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Categorie $category): self
+    {
+        if ($this->categories->removeElement($category)) {
+            $category->removeForum($this);
+        }
+
+        return $this;
     }
 
 
