@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Forum;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -68,6 +69,16 @@ class ForumType extends AbstractType
                 'constraints' => [
                     new Assert\NotNull()
                 ]
+            ])
+            ->add('images', CollectionType::class, [
+                'entry_type' => ForumImageType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'label' => 'Images',
+                'prototype' => true,
+                'prototype_name' => '__name__',
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [

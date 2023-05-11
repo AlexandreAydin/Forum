@@ -21,6 +21,12 @@ class Categorie
     #[ORM\ManyToMany(targetEntity: Forum::class, inversedBy: 'categories')]
     private Collection $forum;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Forum", mappedBy="categories")
+     */
+    private $forums;
+
+
 
     public function __toString()
     {

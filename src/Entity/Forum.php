@@ -8,7 +8,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+
+
+/**
+ * @ORM\Entity
+ * @Vich\Uploadable
+ */
 #[ORM\Entity(repositoryClass: ForumRepository::class)]
 class Forum
 {
@@ -50,6 +57,9 @@ class Forum
     #[ORM\JoinColumn(nullable: false)]
     private Collection $categories;
 
+    #[ORM\OneToMany(mappedBy: 'forum', targetEntity: ForumImage::class,  cascade: ['persist'], orphanRemoval: true)]
+    private Collection $images;
+
 
 
     public function __construct()
@@ -58,6 +68,7 @@ class Forum
         $this->updatedAt = new \DateTimeImmutable();
         $this->marks = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -228,5 +239,34 @@ class Forum
         return $this;
     }
 
+     /**
+     * @return Collection<int, ForumImage>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(ForumImage $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setForum($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(ForumImage $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getForum() === $this) {
+                $image->setForum(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

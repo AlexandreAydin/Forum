@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Categorie;
 use App\Entity\Forum;
+use App\Entity\ForumImage;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -31,6 +32,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('User', 'fas fa-bowl-rice', User::class);
         yield MenuItem::linkToCrud('Forum', 'fas fa-bowl-rice', Forum::class);
+        yield MenuItem::linkToCrud('Images', 'fas fa-bowl-rice', ForumImage::class);
         yield MenuItem::linkToCrud('Catégorie', 'fas fa-bowl-rice', Categorie::class);
+       
     }
 }

@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 
 class UserCrudController extends AbstractCrudController
@@ -41,7 +42,14 @@ class UserCrudController extends AbstractCrudController
             ArrayField::new('roles')
                 ->hideOnIndex(),
             DateTimeField::new('createdAt')
-                ->hideOnForm()
+                ->hideOnForm(),
+            CollectionField::new('images')
+                ->setEntryType(FileType::class)
+                ->setFormTypeOption('required', false)
+                ->setFormTypeOption('attr', [
+                    'accept' => 'image/*',
+                    'multiple' => true,
+                ]),
         ];
     }
 }
