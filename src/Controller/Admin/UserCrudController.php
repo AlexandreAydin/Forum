@@ -43,13 +43,7 @@ class UserCrudController extends AbstractCrudController
                 ->hideOnIndex(),
             DateTimeField::new('createdAt')
                 ->hideOnForm(),
-            CollectionField::new('images')
-                ->setEntryType(FileType::class)
-                ->setFormTypeOption('required', false)
-                ->setFormTypeOption('attr', [
-                    'accept' => 'image/*',
-                    'multiple' => true,
-                ]),
+
         ];
     }
 }
